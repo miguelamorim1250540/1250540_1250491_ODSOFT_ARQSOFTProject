@@ -130,7 +130,7 @@ public class BookServiceImpl implements BookService {
 		return this.bookRepository.findTop5BooksLent(oneYearAgo, pageableRules).getContent();
 	}
 
-	@Override
+	/*@Override
 	public Book removeBookPhoto(String isbn, long desiredVersion) {
 		Book book = this.findByIsbn(isbn);
 		String photoFile;
@@ -144,7 +144,7 @@ public class BookServiceImpl implements BookService {
 		var updatedBook = bookRepository.save(book);
 		photoRepository.deleteByPhotoFile(photoFile);
 		return updatedBook;
-	}
+	}*/
 
 	@Override
 	public List<Book> findByGenre(String genre) {

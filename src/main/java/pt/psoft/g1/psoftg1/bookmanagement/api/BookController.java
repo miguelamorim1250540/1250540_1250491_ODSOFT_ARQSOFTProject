@@ -96,7 +96,7 @@ public class BookController {
                 .body(bookView);
     }
 
-    @Operation(summary = "Deletes a book photo")
+    /*@Operation(summary = "Deletes a book photo")
     @DeleteMapping("/{isbn}/photo")
     public ResponseEntity<Void> deleteBookPhoto(@PathVariable("isbn") final String isbn) {
 
@@ -133,7 +133,7 @@ public class BookController {
 
         return ResponseEntity.ok().contentType(fileFormat.equals("png") ? MediaType.IMAGE_PNG : MediaType.IMAGE_JPEG).body(image);
 
-    }
+    }*/
 
 
     @Operation(summary = "Updates a specific Book")
