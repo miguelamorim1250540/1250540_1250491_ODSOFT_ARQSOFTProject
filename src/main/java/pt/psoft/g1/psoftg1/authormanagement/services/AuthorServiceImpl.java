@@ -36,7 +36,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> findByName(String name) {
-        return authorRepository.searchByNameNameStartsWith(name);
+        return authorRepository.searchByNameStartsWith(name);
     }
 
     @Override
@@ -121,6 +121,24 @@ public class AuthorServiceImpl implements AuthorService {
         Optional<Author> updatedAuthor = Optional.of(authorRepository.save(author));
         photoRepository.deleteByPhotoFile(photoFile);
         return updatedAuthor;
+    }
+
+    @Override
+    public List<Book> findBooksByAuthorNumber(Object authorNumber) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findBooksByAuthorNumber'");
+    }
+
+    @Override
+    public Optional<Author> removeAuthorPhoto(Object authorNumber, long desiredVersion) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeAuthorPhoto'");
+    }
+
+    @Override
+    public void removeAuthorPhoto(Object authorNumber, Long version) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeAuthorPhoto'");
     }
 
 }

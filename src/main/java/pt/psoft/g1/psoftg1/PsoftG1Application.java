@@ -3,7 +3,7 @@ package pt.psoft.g1.psoftg1;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "pt.psoft.g1.psoftg1")
 public class PsoftG1Application {
 
 	public static void main(String[] args) {

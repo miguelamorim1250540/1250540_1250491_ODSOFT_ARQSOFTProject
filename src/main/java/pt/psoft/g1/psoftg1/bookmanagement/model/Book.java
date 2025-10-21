@@ -41,9 +41,9 @@ public class Book extends EntityWithPhoto {
     @NotNull
     Genre genre;
 
-    @Getter
-    @ManyToMany
-    private List<Author> authors = new ArrayList<>();
+    // @Getter
+    // @ManyToMany
+    // private List<Author> authors = new ArrayList<>();
 
     @Embedded
     Description description;
@@ -58,7 +58,7 @@ public class Book extends EntityWithPhoto {
 
     private void setGenre(Genre genre) {this.genre = genre; }
 
-    private void setAuthors(List<Author> authors) {this.authors = authors; }
+    // private void setAuthors(List<Author> authors) {this.authors = authors; }
 
     public String getDescription(){ return this.description.toString(); }
 
@@ -75,7 +75,7 @@ public class Book extends EntityWithPhoto {
         if(authors.isEmpty())
             throw new IllegalArgumentException("Author list is empty");
 
-        setAuthors(authors);
+        // setAuthors(authors);
         setPhotoInternal(photoURI);
     }
 
@@ -113,7 +113,7 @@ public class Book extends EntityWithPhoto {
         }
 
         if(authors != null) {
-            setAuthors(authors);
+            // setAuthors(authors);
         }
 
         if(photoURI != null)

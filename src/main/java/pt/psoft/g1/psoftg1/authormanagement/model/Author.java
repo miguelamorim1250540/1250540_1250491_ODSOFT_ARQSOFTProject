@@ -1,37 +1,32 @@
 package pt.psoft.g1.psoftg1.authormanagement.model;
 
-import jakarta.persistence.*;
-import lombok.Getter;
 import org.hibernate.StaleObjectStateException;
+
+
 import pt.psoft.g1.psoftg1.authormanagement.services.UpdateAuthorRequest;
 import pt.psoft.g1.psoftg1.exceptions.ConflictException;
 import pt.psoft.g1.psoftg1.shared.model.EntityWithPhoto;
 import pt.psoft.g1.psoftg1.shared.model.Name;
+import pt.psoft.g1.psoftg1.shared.model.Photo;
 
-@Entity
+
 public class Author extends EntityWithPhoto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "AUTHOR_NUMBER")
-    @Getter
+
     private Long authorNumber;
 
-    @Version
     private long version;
 
-    @Embedded
     private Name name;
 
-    @Embedded
-    private Bio bio;
+    //private Bio bio;
 
     public void setName(String name) {
         this.name = new Name(name);
     }
 
-    public void setBio(String bio) {
-        this.bio = new Bio(bio);
-    }
+    // public void setBio(String bio) {
+    //     this.bio = new Bio(bio);
+    // }
 
     public Long getVersion() {
         return version;
@@ -41,9 +36,14 @@ public class Author extends EntityWithPhoto {
         return authorNumber;
     }
 
-    public Author(String name, String bio, String photoURI) {
+    // public Author(String name, String bio2, String photoURI) {
+    //     setName(name);
+    //     setBio(bio2);
+    //     setPhotoInternal(photoURI);
+    // }
+
+        public Author(String name, String photoURI) {
         setName(name);
-        setBio(bio);
         setPhotoInternal(photoURI);
     }
 
@@ -57,8 +57,8 @@ public class Author extends EntityWithPhoto {
             throw new StaleObjectStateException("Object was already modified by another user", this.authorNumber);
         if (request.getName() != null)
             setName(request.getName());
-        if (request.getBio() != null)
-            setBio(request.getBio());
+        // if (request.getBio() != null)
+        //     setBio(request.getBio());
         if(request.getPhotoURI() != null)
             setPhotoInternal(request.getPhotoURI());
     }
@@ -74,8 +74,22 @@ public class Author extends EntityWithPhoto {
         return this.name.toString();
     }
 
-    public String getBio() {
-        return this.bio.toString();
+    // public String getBio() {
+    //     return this.bio.toString();
+    // }
+
+    // public String getPhotoInternal() {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'getPhotoInternal'");
+    // }
+
+    public String getPhotoInternal() {
+
+        return (this.photo != null) ? this.photo.toString() : null;
+    }
+
+    public Object getAuthorNumber() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAuthorNumber'");
     }
 }
-

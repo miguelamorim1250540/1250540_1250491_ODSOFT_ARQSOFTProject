@@ -9,7 +9,7 @@ import pt.psoft.g1.psoftg1.bookmanagement.services.BookCountDTO;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-08T16:31:20+0100",
+    date = "2025-10-18T17:28:42+0100",
     comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.44.0.v20251001-1143, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
@@ -28,7 +28,7 @@ public class BookViewMapperImpl extends BookViewMapper {
         bookView.setDescription( map( book.getDescription() ) );
         bookView.setTitle( map( book.getTitle() ) );
 
-        bookView.setAuthors( mapAuthors(book.getAuthors()) );
+        // bookView.setAuthors( mapAuthors(book.getAuthors()) );
         bookView.set_links( mapLinks(book) );
 
         return bookView;
