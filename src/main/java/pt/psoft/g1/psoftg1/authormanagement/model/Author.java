@@ -92,4 +92,9 @@ public class Author extends EntityWithPhoto {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getAuthorNumber'");
     }
+
+    public void setVersion(long version2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setVersion'");
+    }
 }

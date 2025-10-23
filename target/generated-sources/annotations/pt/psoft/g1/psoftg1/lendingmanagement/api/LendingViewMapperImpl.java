@@ -10,7 +10,7 @@ import pt.psoft.g1.psoftg1.lendingmanagement.model.Lending;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-15T20:45:48+0100",
+    date = "2025-10-22T22:42:44+0100",
     comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.44.0.v20251001-1143, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
