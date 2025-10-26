@@ -15,7 +15,9 @@ public class BookDocumentMapper {
             .map(author -> )
             .toList();
         */
-        return new BookDocument(new IsbnDocument(book.getIsbn()),
+        return new BookDocument(
+            book.getId(),
+            new IsbnDocument(book.getIsbn()),
             new TitleDocument(book.getTitle().toString()),
             new DescriptionDocument(book.getDescription()),
             book.getGenre(),
@@ -24,7 +26,9 @@ public class BookDocumentMapper {
     }
 
     public static Book toDomain (BookDocument bookDocument) {
-        return new Book(bookDocument.getIsbn().getIsbn(),
+        return new Book(
+            bookDocument.getBookId(),
+            bookDocument.getIsbn().getIsbn(),
             bookDocument.getTitle().getTitle(),
             bookDocument.getDescription().getDescription(),
             bookDocument.getGenre(),

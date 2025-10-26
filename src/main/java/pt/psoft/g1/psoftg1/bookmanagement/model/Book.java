@@ -15,7 +15,8 @@ import java.util.Objects;
 
 //TODO: Criar referencia para a foto
 public class Book{
-    long pk;
+    @Getter
+    String id;
 
     @Getter
     private Long version;
@@ -47,7 +48,8 @@ public class Book{
 
     public String getDescription(){ return this.description.toString(); }
 
-    public Book(String isbn, String title, String description, Genre genre, List<Author> authors, String photoURI) {
+    public Book(String id, String isbn, String title, String description, Genre genre, List<Author> authors, String photoURI) {
+        this.id = id;
         setTitle(title);
         setIsbn(isbn);
         if(description != null)
@@ -62,6 +64,7 @@ public class Book{
 
         setAuthors(authors);
     }
+    
 
     protected Book() {
         // got ORM only
@@ -75,7 +78,7 @@ public class Book{
 
     public void applyPatch(final Long desiredVersion, UpdateBookRequest request) {
         if (!Objects.equals(this.version, desiredVersion))
-            throw new StaleObjectStateException("Object was already modified by another user", this.pk);
+            throw new StaleObjectStateException("Object was already modified by another user", this.id);
 
         String title = request.getTitle();
         String description = request.getDescription();

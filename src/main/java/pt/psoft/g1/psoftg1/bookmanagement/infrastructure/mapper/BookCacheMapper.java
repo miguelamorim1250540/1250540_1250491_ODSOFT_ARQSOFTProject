@@ -18,7 +18,9 @@ public class BookCacheMapper {
             .toList();
         */
 
-        return new BookCache(new IsbnCache(book.getIsbn()),
+        return new BookCache(
+            book.getId(), 
+            new IsbnCache(book.getIsbn()),
             new TitleCache(book.getTitle().toString()),
             new DescriptionCache(book.getDescription()),
             book.getGenre(),
@@ -27,7 +29,9 @@ public class BookCacheMapper {
     }
 
     public static Book toDomain (BookCache bookCache) {
-        return new Book(bookCache.getIsbn().getIsbn(),
+        return new Book(
+            bookCache.getId(),
+            bookCache.getIsbn().getIsbn(),
             bookCache.getTitle().getTitle(),
             bookCache.getDescription().getDescription(),
             bookCache.getGenre(),

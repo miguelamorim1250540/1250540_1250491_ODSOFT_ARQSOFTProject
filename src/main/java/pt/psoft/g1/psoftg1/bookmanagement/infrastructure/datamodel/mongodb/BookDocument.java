@@ -12,6 +12,7 @@ import pt.psoft.g1.psoftg1.genremanagement.model.Genre;
 @Document(collection = "books")
 public class BookDocument {
     @Id
+    @Getter
     private String bookId;
 
     @Getter
@@ -35,7 +36,8 @@ public class BookDocument {
     @Getter
     private String photoUrl;
 
-    public BookDocument (IsbnDocument isbn, TitleDocument title, DescriptionDocument description, Genre genre, List<Author> authors, String photoUrl) {
+    public BookDocument (String bookId, IsbnDocument isbn, TitleDocument title, DescriptionDocument description, Genre genre, List<Author> authors, String photoUrl) {
+        this.bookId = bookId;
         this.isbn = isbn;
         this.title = title;
         this.description = description;

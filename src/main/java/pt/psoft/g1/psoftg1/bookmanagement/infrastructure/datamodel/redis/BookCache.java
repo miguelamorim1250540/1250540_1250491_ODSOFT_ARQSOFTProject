@@ -13,6 +13,7 @@ import pt.psoft.g1.psoftg1.genremanagement.model.Genre;
 @RedisHash("Book")
 public class BookCache implements Serializable{
     @Id
+    @Getter
     private String id;
 
     @Getter
@@ -33,7 +34,8 @@ public class BookCache implements Serializable{
     @Getter
     private String photoUrl;
 
-    public BookCache (IsbnCache isbn, TitleCache title, DescriptionCache description, Genre genre, List<Author> authors, String photoUrl) {
+    public BookCache (String id, IsbnCache isbn, TitleCache title, DescriptionCache description, Genre genre, List<Author> authors, String photoUrl) {
+        this.id = id;
         this.isbn = isbn;
         this.title = title;
         this.description = description;
