@@ -4,16 +4,19 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import pt.psoft.g1.psoftg1.bookmanagement.infrastructure.datamodel.mongodb.BookDocument;
 import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
 import pt.psoft.g1.psoftg1.bookmanagement.repositories.BookRepository;
 import pt.psoft.g1.psoftg1.bookmanagement.services.BookCountDTO;
 
+@Profile("mongodb-redis")
 public interface MongoDBBookRepository extends BookRepository, MongoRepository<BookDocument, String>{
     @Query("{ 'isbn': ?0 }")
     Optional<Book> findByIsbn(String isbn);

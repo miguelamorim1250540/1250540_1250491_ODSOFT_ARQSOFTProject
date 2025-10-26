@@ -1,6 +1,8 @@
 package pt.psoft.g1.psoftg1.bookmanagement.services;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +43,7 @@ public class BookServiceImpl implements BookService {
 	private long suggestionsLimitPerGenre;
 
 	@Override
+	@CachePut(value = "books", key = "#id")
 	public Book create(CreateBookRequest request, String isbn) {
 
 		if(bookRepository.findByIsbn(isbn).isPresent()){
@@ -77,6 +80,7 @@ public class BookServiceImpl implements BookService {
 
 
 	@Override
+	@CachePut(value = "books", key = "#id")
 	public Book update(UpdateBookRequest request, String currentVersion) {
 
         var book = findByIsbn(request.getIsbn());
@@ -119,6 +123,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	@CachePut(value = "books", key = "#id")
 	public Book save(Book book) {
 		return this.bookRepository.save(book);
 	}
@@ -147,10 +152,12 @@ public class BookServiceImpl implements BookService {
 	}*/
 
 	@Override
+	@Cacheable(value = "books", key = "#genre.genre")
 	public List<Book> findByGenre(String genre) {
 		return this.bookRepository.findByGenre(genre);
 	}
 
+	@Cacheable(value = "books", key = "#title")
 	public List<Book> findByTitle(String title) {
 		return bookRepository.findByTitle(title);
 	}
@@ -160,6 +167,7 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findByAuthorName(authorName + "%");
 	}
 
+	@Cacheable(value = "books", key = "#isbn")
 	public Book findByIsbn(String isbn) {
 		return this.bookRepository.findByIsbn(isbn)
 				.orElseThrow(() -> new NotFoundException(Book.class, isbn));

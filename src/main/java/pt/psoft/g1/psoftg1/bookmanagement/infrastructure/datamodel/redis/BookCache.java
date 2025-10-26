@@ -1,41 +1,39 @@
-package pt.psoft.g1.psoftg1.bookmanagement.infrastructure.datamodel.mongodb;
+package pt.psoft.g1.psoftg1.bookmanagement.infrastructure.datamodel.redis;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.redis.core.RedisHash;
 
 import lombok.Getter;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 import pt.psoft.g1.psoftg1.genremanagement.model.Genre;
 
-@Document(collection = "books")
-public class BookDocument {
+@RedisHash("Book")
+public class BookCache implements Serializable{
     @Id
-    private String bookId;
+    private String id;
 
     @Getter
-    private Long version;
+    private IsbnCache isbn;
 
     @Getter
-    private IsbnDocument isbn;
+    private TitleCache title;
 
     @Getter
-    private TitleDocument title;
-
-    @Getter
-    private DescriptionDocument description;
+    private DescriptionCache description;
 
     @Getter
     private Genre genre;
 
     @Getter
     private List<Author> authors;
-
+    
     @Getter
     private String photoUrl;
 
-    public BookDocument (IsbnDocument isbn, TitleDocument title, DescriptionDocument description, Genre genre, List<Author> authors, String photoUrl) {
+    public BookCache (IsbnCache isbn, TitleCache title, DescriptionCache description, Genre genre, List<Author> authors, String photoUrl) {
         this.isbn = isbn;
         this.title = title;
         this.description = description;
