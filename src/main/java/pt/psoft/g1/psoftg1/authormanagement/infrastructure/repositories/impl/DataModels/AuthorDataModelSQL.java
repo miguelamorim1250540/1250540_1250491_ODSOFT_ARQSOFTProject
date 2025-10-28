@@ -1,10 +1,9 @@
-package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.RepositorySQL;
+package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.DataModels;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
-import pt.psoft.g1.psoftg1.authormanagement.model.Bio;
 
 @Entity
 @Table(name = "authors")
@@ -19,10 +18,8 @@ public class AuthorDataModelSQL {
     @Column(nullable = false)
     private String name;
 
-//     @Embedded
-// //    private Bio bio;
-//     // @Column(length = 4096)
-//     private String bio;
+    @Column(length = 4096)
+    private String bio;
 
     private String photoURI;
 
@@ -30,16 +27,17 @@ public class AuthorDataModelSQL {
 
     // Construtor auxiliar para converter do modelo de domínio
     public AuthorDataModelSQL(Author author) {
-        this.authorNumber = author.getId();
+        this.authorNumber = author.getAuthorNumber();
         this.name = author.getName();
-        // this.bio = author.getBio();
+        this.bio = author.getBio(); // agora é String
         this.photoURI = author.getPhotoInternal();
         this.version = author.getVersion();
     }
 
-    // Método auxiliar para converter de volta para o modelo de domínio this.bio,
+    // Método auxiliar para converter de volta para o modelo de domínio
     public Author toDomain() {
-        Author author = new Author(this.name, this.photoURI);
+        Author author = new Author(this.name, this.bio, this.photoURI);
+        author.setVersion(this.version);
         return author;
     }
 }

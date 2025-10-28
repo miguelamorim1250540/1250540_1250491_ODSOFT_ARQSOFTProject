@@ -37,4 +37,11 @@ public abstract class EntityWithPhoto {
             }
         }
     }
+
+    public String getPhotoURI() {
+        if (this.photo == null) {
+            return null;
+        }
+        return this.photo.getPhotoFile();
+    }
 }

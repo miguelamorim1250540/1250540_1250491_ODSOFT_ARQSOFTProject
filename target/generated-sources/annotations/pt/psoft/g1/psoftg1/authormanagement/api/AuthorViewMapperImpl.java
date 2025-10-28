@@ -11,7 +11,7 @@ import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-22T23:29:41+0100",
+    date = "2025-10-28T00:40:55+0000",
     comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.44.0.v20251001-1143, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
@@ -25,9 +25,8 @@ public class AuthorViewMapperImpl extends AuthorViewMapper {
 
         AuthorView authorView = new AuthorView();
 
-        if ( author.getAuthorNumber() != null ) {
-            authorView.setAuthorNumber( Long.parseLong( map( author.getAuthorNumber() ) ) );
-        }
+        authorView.setAuthorNumber( author.getAuthorNumber() );
+        authorView.setBio( map( author.getBio() ) );
         authorView.setName( map( author.getName() ) );
         authorView.setPhoto( map( author.getPhoto() ) );
 

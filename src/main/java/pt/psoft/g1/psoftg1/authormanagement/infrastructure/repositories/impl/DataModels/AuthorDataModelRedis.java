@@ -1,4 +1,4 @@
-package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.RepositorySQL;
+package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.DataModels;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,15 +19,15 @@ public class AuthorDataModelRedis {
     private long version;
 
     public AuthorDataModelRedis(Author author) {
-        this.authorNumber = author.getId();
+        this.authorNumber = author.getAuthorNumber();
         this.name = author.getName();
-        // this.bio = author.getBio().toString();
+        this.bio = author.getBio().toString();
         this.photoURI = author.getPhotoInternal();
         this.version = author.getVersion();
     }
 
     public Author toDomain() {
-        Author author = new Author(this.name, this.photoURI); //this.bio
+        Author author = new Author(this.name, this.bio, this.photoURI);
         author.setVersion(this.version);
         return author;
     }

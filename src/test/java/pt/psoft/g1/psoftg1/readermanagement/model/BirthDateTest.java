@@ -1,12 +1,6 @@
 package pt.psoft.g1.psoftg1.readermanagement.model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
-
-import java.nio.file.AccessDeniedException;
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BirthDateTest {

@@ -1,6 +1,6 @@
 package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.mappers;
 
-import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.RepositorySQL.AuthorDataModelSQL;
+import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.DataModels.AuthorDataModelSQL;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 
 public class AuthorMapper {

@@ -1,4 +1,4 @@
-package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl;
+package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.RepositorySQL;
 
 import lombok.RequiredArgsConstructor;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import pt.psoft.g1.psoftg1.authormanagement.api.AuthorLendingView;
 import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.SpringDataAuthorRepository;
-import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.RepositorySQL.AuthorDataModelSQL;
+import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.DataModels.AuthorDataModelSQL;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 import pt.psoft.g1.psoftg1.authormanagement.repositories.AuthorRepository;
 

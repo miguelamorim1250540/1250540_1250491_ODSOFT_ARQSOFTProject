@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pt.psoft.g1.psoftg1.authormanagement.api.AuthorLendingView;
-import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.RepositorySQL.AuthorDataModelSQL;
+import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.DataModels.AuthorDataModelSQL;
 import pt.psoft.g1.psoftg1.authormanagement.repositories.AuthorRepository;
 
 import java.util.List;

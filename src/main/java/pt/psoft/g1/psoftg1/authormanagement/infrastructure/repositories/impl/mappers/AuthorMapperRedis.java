@@ -1,6 +1,6 @@
 package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.mappers;
 
-import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.RepositorySQL.AuthorDataModelRedis;
+import pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl.DataModels.AuthorDataModelRedis;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 
 public class AuthorMapperRedis {
