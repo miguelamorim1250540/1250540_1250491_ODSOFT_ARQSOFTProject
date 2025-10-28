@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Profile("sql-redis")
-public interface SpringDataBookRepository  extends BookRepository, BookRepoCustom, CrudRepository<Book, Isbn> {
+public interface SpringDataBookRepository  extends BookRepository, BookRepoCustom, CrudRepository<Book, String> {
 
     @Query("SELECT b " +
             "FROM Book b " +
