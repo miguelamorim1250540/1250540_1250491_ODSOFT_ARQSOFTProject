@@ -11,6 +11,7 @@ import pt.psoft.g1.psoftg1.authormanagement.repositories.AuthorRepository;
 import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
 import pt.psoft.g1.psoftg1.bookmanagement.repositories.BookRepository;
 import pt.psoft.g1.psoftg1.exceptions.NotFoundException;
+import pt.psoft.g1.psoftg1.shared.model.IDGeneratorFactory;
 import pt.psoft.g1.psoftg1.shared.repositories.PhotoRepository;
 
 import java.util.List;
@@ -19,14 +20,17 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
+
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
     private final AuthorMapper mapper;
     private final PhotoRepository photoRepository;
+    private final IDGeneratorFactory idGeneratorFactory;
+
 
     @Override
     public Iterable<Author> findAll() {
-        return authorRepository.findAll();
+        return authorRepository.getAllAuthors();
     }
 
     @Override
@@ -36,7 +40,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> findByName(String name) {
-        return authorRepository.searchByNameNameStartsWith(name);
+        return authorRepository.searchByNameStartsWith(name);
     }
 
     @Override
@@ -59,9 +63,16 @@ public class AuthorServiceImpl implements AuthorService {
             resource.setPhoto(null);
             resource.setPhotoURI(null);
         }
-        final Author author = mapper.create(resource);
+        String generatedId = idGeneratorFactory.generateIdUsing("AlgorithmHex", resource.getName());
+        Author author = new Author(generatedId, resource.getName(), resource.getBio());
+
         return authorRepository.save(author);
     }
+
+    // testar no post
+//     String generatedId = idGeneratorFactory.generateId(resource.getName());
+// System.out.println("Generated Author ID: " + generatedId);
+
 
     @Override
     public Author partialUpdate(final Long authorNumber, final UpdateAuthorRequest request, final long desiredVersion) {
@@ -121,6 +132,24 @@ public class AuthorServiceImpl implements AuthorService {
         Optional<Author> updatedAuthor = Optional.of(authorRepository.save(author));
         photoRepository.deleteByPhotoFile(photoFile);
         return updatedAuthor;
+    }
+
+    @Override
+    public List<Book> findBooksByAuthorNumber(Object authorNumber) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findBooksByAuthorNumber'");
+    }
+
+    @Override
+    public Optional<Author> removeAuthorPhoto(Object authorNumber, long desiredVersion) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeAuthorPhoto'");
+    }
+
+    @Override
+    public void removeAuthorPhoto(Object authorNumber, Long version) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeAuthorPhoto'");
     }
 
 }

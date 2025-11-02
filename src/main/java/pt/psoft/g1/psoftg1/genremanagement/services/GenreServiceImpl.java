@@ -8,6 +8,8 @@ import pt.psoft.g1.psoftg1.bookmanagement.services.GenreBookCountDTO;
 import pt.psoft.g1.psoftg1.exceptions.NotFoundException;
 import pt.psoft.g1.psoftg1.genremanagement.model.Genre;
 import pt.psoft.g1.psoftg1.genremanagement.repositories.GenreRepository;
+import pt.psoft.g1.psoftg1.shared.model.AlgorithmId;
+import pt.psoft.g1.psoftg1.shared.model.IDGeneratorFactory;
 import pt.psoft.g1.psoftg1.shared.services.Page;
 
 import java.time.LocalDate;
@@ -20,7 +22,19 @@ import java.util.Optional;
 public class GenreServiceImpl implements GenreService {
 
     private final GenreRepository genreRepository;
+    private final IDGeneratorFactory idGeneratorFactory;
 
+        public Genre create(String genreName) {
+        // Usa explicitamente o algoritmo "AlgorithmHash" para este caso
+        AlgorithmId hashGenerator = idGeneratorFactory.getGenerator("AlgorithmHash");
+        String generatedId = hashGenerator.generateId(genreName);
+
+        Genre genre = new Genre(generatedId, genreName);
+
+        System.out.println("✅ Generated Genre ID (Hash): " + generatedId);
+
+        return genreRepository.save(genre);
+    }
 
     public Optional<Genre> findByString(String name) {
         return genreRepository.findByString(name);

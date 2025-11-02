@@ -69,7 +69,7 @@ public class BookController {
 
         Book book;
         try {
-            book = bookService.create(resource, isbn);
+            book = bookService.create(resource);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

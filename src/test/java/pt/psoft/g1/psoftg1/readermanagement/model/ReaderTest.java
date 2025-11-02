@@ -46,20 +46,20 @@ public class ReaderTest {
     void ensurePhotoCanBeNull_AkaOptional() {
         Reader mockReader = mock(Reader.class);
         ReaderDetails readerDetails = new ReaderDetails(123, mockReader, "2010-01-01", "912345678", true, false, false,null,null);
-        assertNull(readerDetails.getPhoto());
+        assertNull(readerDetails.getPhotoURI());
     }
 
     @Test
     void ensureValidPhoto() {
         Reader mockReader = mock(Reader.class);
-        ReaderDetails readerDetails = new ReaderDetails(123, mockReader, "2010-01-01", "912345678", true, false, false,"readerPhotoTest.jpg",null);
-        Photo photo = readerDetails.getPhoto();
+        ReaderDetails readerDetails = new ReaderDetails(
+            123, mockReader, "2010-01-01", "912345678", true, false, false, "readerPhotoTest.jpg", null
+        );
 
-        //This is here to force the test to fail if the photo is null
-        assertNotNull(photo);
+        String photoURI = readerDetails.getPhotoURI();
 
-        String readerPhoto = photo.getPhotoFile();
-        assertEquals("readerPhotoTest.jpg", readerPhoto);
+        assertNotNull(photoURI); // o URI não pode ser nulo
+        assertEquals("readerPhotoTest.jpg", photoURI); // compara diretamente com a string
     }
 
     @Test
@@ -75,8 +75,8 @@ public class ReaderTest {
     @Test
     void ensureInterestListCanTakeAnyValidGenre() {
         Reader mockReader = mock(Reader.class);
-        Genre g1 = new Genre("genre1");
-        Genre g2 = new Genre("genre2");
+        Genre g1 = new Genre("genre1", null);
+        Genre g2 = new Genre("genre2", null);
         List<Genre> genreList = new ArrayList<>();
         genreList.add(g1);
         genreList.add(g2);

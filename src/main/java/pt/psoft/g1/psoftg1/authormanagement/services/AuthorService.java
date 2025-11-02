@@ -21,9 +21,15 @@ public interface AuthorService {
 
     List<AuthorLendingView> findTopAuthorByLendings();
 
-    List<Book> findBooksByAuthorNumber(Long authorNumber);
+    List<Book> findBooksByAuthorNumber(Object authorNumber);
 
     List<Author> findCoAuthorsByAuthorNumber(Long authorNumber);
+
+    Optional<Author> removeAuthorPhoto(Object authorNumber, long desiredVersion);
+
+    void removeAuthorPhoto(Object authorNumber, Long version);
+
+    List<Book> findBooksByAuthorNumber(Long authorNumber);
 
     Optional<Author> removeAuthorPhoto(Long authorNumber, long desiredVersion);
 }

@@ -4,7 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
+// import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
 import pt.psoft.g1.psoftg1.bookmanagement.services.BookCountDTO;
 import pt.psoft.g1.psoftg1.shared.api.MapperInterface;
@@ -49,19 +51,19 @@ public abstract class BookViewMapper extends MapperInterface {
         Map<String, Object> links = new HashMap<>();
         links.put("self", bookUri);
 
-        List<Map<String, String>> authorLinks = book.getAuthors().stream()
-                .map(author -> {
-                    String authorUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                            .path("/api/authors/")
-                            .path(author.getAuthorNumber().toString())
-                            .toUriString();
-                    Map<String, String> authorLink = new HashMap<>();
-                    authorLink.put("href", authorUri);
-                    return authorLink;
-                })
-                .collect(Collectors.toList());
+        // List<Map<String, String>> authorLinks = book.getAuthors().stream()
+        //         .map(author -> {
+        //             String authorUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+        //                     .path("/api/authors/")
+        //                     .path(author.getAuthorNumber().toString())
+        //                     .toUriString();
+        //             Map<String, String> authorLink = new HashMap<>();
+        //             authorLink.put("href", authorUri);
+        //             return authorLink;
+        //         })
+        //         .collect(Collectors.toList());
 
-        links.put("authors", authorLinks);
+        // links.put("authors", authorLinks);
         links.put("photo", generatePhotoUrl(book));
 
         return links;

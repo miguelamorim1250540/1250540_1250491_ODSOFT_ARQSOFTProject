@@ -1,8 +1,5 @@
 package pt.psoft.g1.psoftg1.bookmanagement.model;
 
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.hibernate.StaleObjectStateException;
 import pt.psoft.g1.psoftg1.authormanagement.model.Author;
@@ -11,117 +8,78 @@ import pt.psoft.g1.psoftg1.exceptions.ConflictException;
 import pt.psoft.g1.psoftg1.genremanagement.model.Genre;
 import pt.psoft.g1.psoftg1.shared.model.EntityWithPhoto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "Book", uniqueConstraints = {
-        @UniqueConstraint(name = "uc_book_isbn", columnNames = {"ISBN"})
-})
+@Getter
 public class Book extends EntityWithPhoto {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    long pk;
 
-    @Version
-    @Getter
+    private long id;
     private Long version;
-
-    @Embedded
-    Isbn isbn;
-
-    @Getter
-    @Embedded
-    @NotNull
-    Title title;
-
-    @Getter
-    @ManyToOne
-    @NotNull
-    Genre genre;
-
-    @Getter
-    @ManyToMany
-    private List<Author> authors = new ArrayList<>();
-
-    @Embedded
-    Description description;
-
-    private void setTitle(String title) {this.title = new Title(title);}
-
-    private void setIsbn(String isbn) {
-        this.isbn = new Isbn(isbn);
-    }
-
-    private void setDescription(String description) {this.description = new Description(description); }
-
-    private void setGenre(Genre genre) {this.genre = genre; }
-
-    private void setAuthors(List<Author> authors) {this.authors = authors; }
-
-    public String getDescription(){ return this.description.toString(); }
+    private Isbn isbn;
+    private Title title;
+    private Genre genre;
+    private Description description;
+    private List<Author> authors;
 
     public Book(String isbn, String title, String description, Genre genre, List<Author> authors, String photoURI) {
-        setTitle(title);
-        setIsbn(isbn);
-        if(description != null)
-            setDescription(description);
-        if(genre==null)
+        if (genre == null)
             throw new IllegalArgumentException("Genre cannot be null");
-        setGenre(genre);
-        if(authors == null)
-            throw new IllegalArgumentException("Author list is null");
-        if(authors.isEmpty())
-            throw new IllegalArgumentException("Author list is empty");
+        if (authors == null || authors.isEmpty())
+            throw new IllegalArgumentException("Author list is null or empty");
 
-        setAuthors(authors);
+        this.isbn = new Isbn(isbn);
+        this.title = new Title(title);
+        this.description = description != null ? new Description(description) : null;
+        this.genre = genre;
+        this.authors = authors;
         setPhotoInternal(photoURI);
     }
 
-    protected Book() {
-        // got ORM only
+    public Book() {
+        // for ORM
     }
 
     public void removePhoto(long desiredVersion) {
-        if(desiredVersion != this.version) {
+        if (!Objects.equals(this.version, desiredVersion)) {
             throw new ConflictException("Provided version does not match latest version of this object");
         }
-
         setPhotoInternal(null);
     }
 
     public void applyPatch(final Long desiredVersion, UpdateBookRequest request) {
         if (!Objects.equals(this.version, desiredVersion))
-            throw new StaleObjectStateException("Object was already modified by another user", this.pk);
+            throw new StaleObjectStateException("Object was already modified by another user", this.id);
 
-        String title = request.getTitle();
-        String description = request.getDescription();
-        Genre genre = request.getGenreObj();
-        List<Author> authors = request.getAuthorObjList();
-        String photoURI = request.getPhotoURI();
-        if(title != null) {
-            setTitle(title);
-        }
+        if (request.getTitle() != null)
+            this.title = new Title(request.getTitle());
 
-        if(description != null) {
-            setDescription(description);
-        }
+        if (request.getDescription() != null)
+            this.description = new Description(request.getDescription());
 
-        if(genre != null) {
-            setGenre(genre);
-        }
+        if (request.getGenreObj() != null)
+            this.genre = request.getGenreObj();
 
-        if(authors != null) {
-            setAuthors(authors);
-        }
+        if (request.getAuthorObjList() != null)
+            this.authors = request.getAuthorObjList();
 
-        if(photoURI != null)
-            setPhotoInternal(photoURI);
-
+        if (request.getPhotoURI() != null)
+            setPhotoInternal(request.getPhotoURI());
     }
 
-    public String getIsbn(){
+    public String getIsbn() {
         return this.isbn.toString();
+    }
+
+    public String getDescription() {
+        return this.description != null ? this.description.toString() : "";
+    }
+
+    public void setId(long id) { 
+    this.id = id; 
+    }
+
+    public void setVersion(Long version) { 
+        this.version = version; 
     }
 }

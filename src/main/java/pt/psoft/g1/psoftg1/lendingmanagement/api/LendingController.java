@@ -30,6 +30,7 @@ import pt.psoft.g1.psoftg1.usermanagement.model.Librarian;
 import pt.psoft.g1.psoftg1.usermanagement.model.User;
 import pt.psoft.g1.psoftg1.usermanagement.services.UserService;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,10 +54,10 @@ public class LendingController {
         final var lending = lendingService.create(resource);
 
         final var newlendingUri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                .pathSegment(lending.getLendingNumber())
+                .pathSegment(lending.getLendingNumber().toString())
                 .build().toUri();
 
-        return ResponseEntity.created(newlendingUri)
+        return ResponseEntity.created((URI) newlendingUri)
                 .contentType(MediaType.parseMediaType("application/hal+json"))
                 .eTag(Long.toString(lending.getVersion()))
                 .body(lendingViewMapper.toLendingView(lending));

@@ -164,7 +164,7 @@ public class ReaderDetails extends EntityWithPhoto {
 
     public String getPhoneNumber() { return this.phoneNumber.toString();}
 
-    protected ReaderDetails() {
+    public ReaderDetails() {
         // for ORM only
     }
 }
