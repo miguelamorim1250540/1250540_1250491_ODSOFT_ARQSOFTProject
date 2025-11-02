@@ -23,29 +23,12 @@ public interface SpringDataAuthorRepository extends JpaRepository<AuthorDataMode
 
     List<AuthorDataModelSQL> findByNameIgnoreCase(String name);
 
-    // @Query("SELECT null") // apenas placeholder temporário
-    // Page<AuthorLendingView> findTopAuthorByLendings(Pageable pageable);
-
-    @Query("""
-            SELECT new pt.psoft.g1.psoftg1.authormanagement.api.AuthorLendingView(a.name, COUNT(l.pk))
-            FROM Book b
-            JOIN b.authors a
-            JOIN Lending l ON l.book.pk = b.pk
-            GROUP BY a.name
-            ORDER BY COUNT(l) DESC
-            """)
+    @Query("SELECT a AS author, COUNT(l) AS lendingsCount " +
+           "FROM Lending l JOIN l.book b JOIN b.authors a " +
+           "GROUP BY a ORDER BY COUNT(l) DESC")
     Page<AuthorLendingView> findTopAuthorByLendings(Pageable pageable);
 
-    @Query("""
-            SELECT DISTINCT coAuthor
-            FROM Book b
-            JOIN b.authors coAuthor
-            WHERE b IN (
-                SELECT b2 FROM Book b2
-                JOIN b2.authors a
-                WHERE a.authorNumber = :authorNumber
-            )
-            AND coAuthor.authorNumber <> :authorNumber
-            """)
+    @Query("SELECT coAuthor FROM AuthorDataModelSQL a JOIN a.books b JOIN b.authors coAuthor " +
+           "WHERE a.authorNumber = :authorNumber AND coAuthor <> a")
     List<AuthorDataModelSQL> findCoAuthorsByAuthorNumber(Long authorNumber);
 }

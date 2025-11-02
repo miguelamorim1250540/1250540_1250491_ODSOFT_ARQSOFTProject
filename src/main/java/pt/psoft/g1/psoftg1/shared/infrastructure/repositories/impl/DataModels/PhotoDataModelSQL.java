@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import pt.psoft.g1.psoftg1.shared.model.Photo;
 
+import java.nio.file.Path;
+
 @Entity
 @Getter
 @Setter
@@ -25,6 +27,6 @@ public class PhotoDataModelSQL {
     }
 
     public Photo toDomain() {
-        return new Photo(photoFile);
+        return new Photo(Path.of(photoFile)); // ✅ converte String → Path
     }
 }

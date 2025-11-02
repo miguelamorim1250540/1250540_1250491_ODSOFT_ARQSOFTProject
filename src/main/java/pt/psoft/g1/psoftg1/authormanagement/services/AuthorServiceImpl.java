@@ -30,7 +30,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Iterable<Author> findAll() {
-        return authorRepository.findAll();
+        return authorRepository.getAllAuthors();
     }
 
     @Override

@@ -131,6 +131,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
+
+		<!-- Biblioteca leve para trabalhar com JSON (usada em GoogleBooksProvider e OpenLibraryProvider) -->
+		<dependency>
+    		<groupId>org.json</groupId>
+    		<artifactId>json</artifactId>
+    		<version>20240303</version>
+		</dependency>
 	</dependencies>
 
 	<build>
