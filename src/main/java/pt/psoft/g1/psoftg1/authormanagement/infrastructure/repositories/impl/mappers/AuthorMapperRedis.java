@@ -5,13 +5,13 @@ import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 
 public class AuthorMapperRedis {
 
-    // Domínio -> Redis
+    // Domínio → Redis
     public static AuthorDataModelRedis toDataModel(Author author) {
         if (author == null) return null;
         return new AuthorDataModelRedis(author);
     }
 
-    // Redis -> Domínio
+    // Redis → Domínio
     public static Author toDomain(AuthorDataModelRedis dataModel) {
         if (dataModel == null) return null;
         return dataModel.toDomain();

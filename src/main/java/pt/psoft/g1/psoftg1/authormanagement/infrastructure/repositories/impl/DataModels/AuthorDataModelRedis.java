@@ -12,7 +12,7 @@ import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 public class AuthorDataModelRedis {
 
     @Id
-    private Long authorNumber;
+    private String authorNumber;
     private String name;
     private String bio;
     private String photoURI;

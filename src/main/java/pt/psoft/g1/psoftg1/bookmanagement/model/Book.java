@@ -36,7 +36,7 @@ public class Book extends EntityWithPhoto {
         setPhotoInternal(photoURI);
     }
 
-    protected Book() {
+    public Book() {
         // for ORM
     }
 
@@ -73,5 +73,13 @@ public class Book extends EntityWithPhoto {
 
     public String getDescription() {
         return this.description != null ? this.description.toString() : "";
+    }
+
+    public void setId(long id) { 
+    this.id = id; 
+    }
+
+    public void setVersion(Long version) { 
+        this.version = version; 
     }
 }

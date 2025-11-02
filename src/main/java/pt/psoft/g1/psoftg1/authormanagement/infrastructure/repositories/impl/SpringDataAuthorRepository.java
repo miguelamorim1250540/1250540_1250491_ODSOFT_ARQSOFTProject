@@ -1,5 +1,6 @@
 package pt.psoft.g1.psoftg1.authormanagement.infrastructure.repositories.impl;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,7 @@ import pt.psoft.g1.psoftg1.authormanagement.repositories.AuthorRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Profile("sqlRedis")
 @Repository
 public interface SpringDataAuthorRepository extends JpaRepository<AuthorDataModelSQL, Long> {
 
@@ -21,30 +23,29 @@ public interface SpringDataAuthorRepository extends JpaRepository<AuthorDataMode
 
     List<AuthorDataModelSQL> findByNameIgnoreCase(String name);
 
-    @Query("SELECT null") // apenas placeholder temporário
-    Page<AuthorLendingView> findTopAuthorByLendings(Pageable pageable);
-
-
-    // @Query("""
-    //         SELECT new pt.psoft.g1.psoftg1.authormanagement.api.AuthorLendingView(a.name, COUNT(l.pk))
-    //         FROM Book b
-    //         JOIN b.authors a
-    //         JOIN Lending l ON l.book.pk = b.pk
-    //         GROUP BY a.name
-    //         ORDER BY COUNT(l) DESC
-    //         """)
+    // @Query("SELECT null") // apenas placeholder temporário
     // Page<AuthorLendingView> findTopAuthorByLendings(Pageable pageable);
 
-    // @Query("""
-    //         SELECT DISTINCT coAuthor
-    //         FROM Book b
-    //         JOIN b.authors coAuthor
-    //         WHERE b IN (
-    //             SELECT b2 FROM Book b2
-    //             JOIN b2.authors a
-    //             WHERE a.authorNumber = :authorNumber
-    //         )
-    //         AND coAuthor.authorNumber <> :authorNumber
-    //         """)
+    @Query("""
+            SELECT new pt.psoft.g1.psoftg1.authormanagement.api.AuthorLendingView(a.name, COUNT(l.pk))
+            FROM Book b
+            JOIN b.authors a
+            JOIN Lending l ON l.book.pk = b.pk
+            GROUP BY a.name
+            ORDER BY COUNT(l) DESC
+            """)
+    Page<AuthorLendingView> findTopAuthorByLendings(Pageable pageable);
+
+    @Query("""
+            SELECT DISTINCT coAuthor
+            FROM Book b
+            JOIN b.authors coAuthor
+            WHERE b IN (
+                SELECT b2 FROM Book b2
+                JOIN b2.authors a
+                WHERE a.authorNumber = :authorNumber
+            )
+            AND coAuthor.authorNumber <> :authorNumber
+            """)
     List<AuthorDataModelSQL> findCoAuthorsByAuthorNumber(Long authorNumber);
 }

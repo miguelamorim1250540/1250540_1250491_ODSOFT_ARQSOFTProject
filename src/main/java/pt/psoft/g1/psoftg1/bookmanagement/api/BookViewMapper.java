@@ -4,6 +4,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 // import pt.psoft.g1.psoftg1.authormanagement.model.Author;
 import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
 import pt.psoft.g1.psoftg1.bookmanagement.services.BookCountDTO;
@@ -33,11 +35,11 @@ public abstract class BookViewMapper extends MapperInterface {
 
     public abstract BookAverageLendingDurationView toBookAverageLendingDurationView(Book book, Double averageLendingDuration);
 
-    // protected List<String> mapAuthors(List<Author> authors) {
-    //     return authors.stream()
-    //             .map(Author::getName)
-    //             .collect(Collectors.toList());
-    // }
+    protected List<String> mapAuthors(List<Author> authors) {
+        return authors.stream()
+                .map(Author::getName)
+                .collect(Collectors.toList());
+    }
 
     @Named(value = "mapBookLinks")
     public Map<String, Object> mapLinks(final Book book) {

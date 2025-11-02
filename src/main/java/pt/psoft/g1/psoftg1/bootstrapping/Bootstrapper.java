@@ -126,23 +126,23 @@ public class Bootstrapper implements CommandLineRunner {
 
     private void createGenres() {
         if (genreRepository.findByString("Fantasia").isEmpty()) {
-            final Genre g1 = new Genre("Fantasia");
+            final Genre g1 = new Genre("Fantasia", null);
             genreRepository.save(g1);
         }
         if (genreRepository.findByString("Informação").isEmpty()) {
-            final Genre g2 = new Genre("Informação");
+            final Genre g2 = new Genre("Informação", null);
             genreRepository.save(g2);
         }
         if (genreRepository.findByString("Romance").isEmpty()) {
-            final Genre g3 = new Genre("Romance");
+            final Genre g3 = new Genre("Romance", null);
             genreRepository.save(g3);
         }
         if (genreRepository.findByString("Infantil").isEmpty()) {
-            final Genre g4 = new Genre("Infantil");
+            final Genre g4 = new Genre("Infantil", null);
             genreRepository.save(g4);
         }
         if (genreRepository.findByString("Thriller").isEmpty()) {
-            final Genre g5 = new Genre("Thriller");
+            final Genre g5 = new Genre("Thriller", null);
             genreRepository.save(g5);
         }
     }

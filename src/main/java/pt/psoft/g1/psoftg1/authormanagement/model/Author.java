@@ -10,7 +10,7 @@ import jakarta.persistence.Embedded;
 
 public class Author extends EntityWithPhoto {
 
-    private Long authorNumber;
+    private String authorNumber;
     private long version;
     private Name name;
 
@@ -29,10 +29,6 @@ public class Author extends EntityWithPhoto {
         return version;
     }
 
-    public Long getAuthorNumber() {
-        return authorNumber;
-    }
-
     public Author(String name, String bio, String photoURI) {
         setName(name);
         setBio(bio);
@@ -42,7 +38,16 @@ public class Author extends EntityWithPhoto {
     protected Author() {
         // for ORM only
     }
+    
+    public String getAuthorNumber() {
+        return authorNumber;
+    }
 
+    public void setAuthorNumber(String authorNumber) {
+        this.authorNumber = authorNumber;
+    }
+
+    
     public void applyPatch(final long desiredVersion, final UpdateAuthorRequest request) {
         if (this.version != desiredVersion)
             throw new StaleObjectStateException("Object was already modified by another user", this.authorNumber);
@@ -79,5 +84,10 @@ public class Author extends EntityWithPhoto {
 
     public void setVersion(long version) {
         this.version = version;
+    }
+
+    public void setAuthorNumber(Long authorNumber2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setAuthorNumber'");
     }
 }

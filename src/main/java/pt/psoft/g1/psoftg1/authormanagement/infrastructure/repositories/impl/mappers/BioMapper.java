@@ -5,15 +5,19 @@ import pt.psoft.g1.psoftg1.authormanagement.model.Bio;
 
 public class BioMapper {
 
-    // Domínio → DataModel (para gravar na BD)
+    // 🔁 Domínio → DataModel
     public static BioDataModelSQL toDataModel(Bio bio) {
         if (bio == null) return null;
-        return new BioDataModelSQL(bio);
+
+        BioDataModelSQL dataModel = new BioDataModelSQL();
+        dataModel.setBio(bio.getBio());
+        return dataModel;
     }
 
-    // DataModel → Domínio (para devolver à camada de serviço)
-    public static Bio toDomain(BioDataModelSQL entity) {
-        if (entity == null) return null;
-        return entity.toDomain();
+    // 🔁 DataModel → Domínio
+    public static Bio toDomain(BioDataModelSQL dataModel) {
+        if (dataModel == null) return null;
+
+        return new Bio(dataModel.getBio());
     }
 }

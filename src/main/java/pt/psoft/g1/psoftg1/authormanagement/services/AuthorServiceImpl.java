@@ -11,6 +11,7 @@ import pt.psoft.g1.psoftg1.authormanagement.repositories.AuthorRepository;
 import pt.psoft.g1.psoftg1.bookmanagement.model.Book;
 import pt.psoft.g1.psoftg1.bookmanagement.repositories.BookRepository;
 import pt.psoft.g1.psoftg1.exceptions.NotFoundException;
+import pt.psoft.g1.psoftg1.shared.model.IDGeneratorFactory;
 import pt.psoft.g1.psoftg1.shared.repositories.PhotoRepository;
 
 import java.util.List;
@@ -19,10 +20,13 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
+
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
     private final AuthorMapper mapper;
     private final PhotoRepository photoRepository;
+    private final IDGeneratorFactory idGeneratorFactory;
+
 
     @Override
     public Iterable<Author> findAll() {
@@ -59,9 +63,16 @@ public class AuthorServiceImpl implements AuthorService {
             resource.setPhoto(null);
             resource.setPhotoURI(null);
         }
-        final Author author = mapper.create(resource);
+        String generatedId = idGeneratorFactory.generateIdUsing("AlgorithmHex", resource.getName());
+        Author author = new Author(generatedId, resource.getName(), resource.getBio());
+
         return authorRepository.save(author);
     }
+
+    // testar no post
+//     String generatedId = idGeneratorFactory.generateId(resource.getName());
+// System.out.println("Generated Author ID: " + generatedId);
+
 
     @Override
     public Author partialUpdate(final Long authorNumber, final UpdateAuthorRequest request, final long desiredVersion) {
